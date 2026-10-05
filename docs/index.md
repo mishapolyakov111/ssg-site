@@ -9,7 +9,7 @@
 |---|---|
 | Репозиторий | <https://github.com/mishapolyakov111/ssg-site> |
 | GitHub Pages | <https://mishapolyakov111.github.io/ssg-site/> |
-| Отечественный хостинг | _TODO: вставить_ |
+| Helios ИТМО | <https://se.ifmo.ru/~s367494/> |
 
 Лицензии: контент — CC BY 4.0, код — MIT (см. `LICENSE`, `LICENSE-CONTENT`).
 

@@ -1,0 +1,52 @@
+site_name: Генераторы статических сайтов для публикации результатов
+site_description: Отчёт по заданию 3 (T1 + P5)
+site_url: https://mishapolyakov111.github.io/ssg-site/
+use_directory_urls: true
+strict: true
+
+theme:
+  name: material
+  language: ru
+  font: false
+  features:
+    - navigation.instant
+    - navigation.sections
+    - content.code.copy
+
+extra:
+  version:
+    provider: mike
+    default: latest
+
+plugins:
+  - search:
+      lang: ru
+
+markdown_extensions:
+  - admonition
+  - footnotes
+  - tables
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+extra_javascript:
+  - javascripts/mathjax-config.js
+  - javascripts/tex-svg.js
+
+nav:
+  - Главная: index.md
+  - Ход работы: workflow.md
+  - "T1. Сравнение генераторов": t1.md
+  - "P5. Версионирование": p5.md
+  - Отладка: debug.md
+  - Вывод: conclusion.md

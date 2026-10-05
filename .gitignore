@@ -1,0 +1,8 @@
+.venv/
+site/
+_build/
+__pycache__/
+*.pyc
+.cache/
+.idea/
+t1-lab/

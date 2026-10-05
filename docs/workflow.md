@@ -52,6 +52,23 @@
 
 Время — длительность всего запуска, один замер на строку.
 
+## Проваленный запуск
+
+Первый запуск после пуша (`Initial site`, `pages` #1) завершился ошибкой в job `deploy-host`, шаг `rsync на хостинг`. Сборка (`build`) и публикация на Pages в этом запуске прошли.
+
+![Упавший шаг rsync в первом запуске](img/failed-rsync.png)
+
+Разбор лога:
+
+| Строка лога | Что означает |
+|---|---|
+| `ssh: Could not resolve hostname : Name or service not known` | `ssh` получил пустое имя хоста |
+| `rsync: connection unexpectedly closed (0 bytes received so far)` | `rsync` не смог открыть соединение |
+| `rsync error: unexplained error (code 255)` | код 255 возвращает `ssh` при ошибке подключения |
+| `Error: Process completed with exit code 255.` | шаг завершился ошибкой, следующий шаг (Healthcheck) пропущен |
+
+Причина и исправление описаны в разделе [Отладка](debug.md), ошибка 5.
+
 Лог job `deploy-host`: значения секретов заменены на `***`, ключ хоста проверяется (`StrictHostKeyChecking=yes`).
 
 ![Лог deploy-host с замаскированными секретами](img/deploy-log-masked.png)

@@ -27,3 +27,12 @@
 - **Гипотеза:** `HOST_SITE_URL` указан по `http`, сервер перенаправляет на `https`, а `curl` без `-L` получает 302 вместо 200.
 - **Проверка:** `curl -I http://se.ifmo.ru/~s367494/` вернул `302 Moved Temporarily` с `Location: https://se.ifmo.ru/~s367494/`, `curl -I https://...` вернул `200 OK`. Поле `Last-Modified` совпало со временем деплоя, значит файлы были загружены.
 - **Решение:** секрет `HOST_SITE_URL` изменён на `https://se.ifmo.ru/~s367494/`, job перезапущен.
+
+## 5. `rsync` падает в первом запуске: имя хоста пустое
+
+- **Ошибка:** `ssh: Could not resolve hostname : Name or service not known`, `rsync error: unexplained error (code 255)`, `Error: Process completed with exit code 255.`
+- **Гипотеза:** в команде `ssh` имя хоста пустое (в сообщении после `hostname` стоит пробел и двоеточие), значит переменная `HOST` из секрета `DEPLOY_HOST` не была задана: секреты в репозиторий ещё не добавлены.
+- **Проверка:** в логе значение подставляется как пустая строка, а не как неверный адрес. После добавления секретов тот же шаг прошёл.
+- **Решение:** добавлены секреты `DEPLOY_HOST`, `DEPLOY_USER`, `DEPLOY_PATH`, `DEPLOY_KEY`, `KNOWN_HOSTS`, `HOST_SITE_URL`.
+
+![Лог упавшего шага rsync](img/failed-rsync.png)

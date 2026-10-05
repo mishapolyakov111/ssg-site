@@ -19,27 +19,10 @@ jobs:
           cache: pip
       - run: pip install -r requirements.txt
       - run: mkdocs build --strict
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: site
       - uses: actions/upload-artifact@v4
         with:
           name: site
           path: site
-
-  deploy-pages:
-    if: github.ref == 'refs/heads/main'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
 
   deploy-host:
     if: github.ref == 'refs/heads/main'
@@ -65,7 +48,8 @@ jobs:
           USER_: ${{ secrets.DEPLOY_USER }}
           DEST: ${{ secrets.DEPLOY_PATH }}
         run: |
-          rsync -az --delete -e "ssh -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
+          rsync -rlz --delete --chmod=D755,F644 \
+            -e "ssh -p 2222 -i ~/.ssh/id_deploy -o StrictHostKeyChecking=yes" \
             site/ "$USER_@$HOST:$DEST/"
       - name: Healthcheck
         env:

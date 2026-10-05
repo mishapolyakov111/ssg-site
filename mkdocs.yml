@@ -47,6 +47,7 @@ nav:
   - Главная: index.md
   - Ход работы: workflow.md
   - "T1. Сравнение генераторов": t1.md
+  - Результаты: results.md
   - "P5. Версионирование": p5.md
   - Отладка: debug.md
   - Вывод: conclusion.md
